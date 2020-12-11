@@ -1,5 +1,4 @@
-﻿
-using DogGo.Models;
+﻿using DogGo.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;

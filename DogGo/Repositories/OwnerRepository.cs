@@ -3,8 +3,6 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DogGo.Repositories
 {
@@ -37,6 +35,7 @@ namespace DogGo.Repositories
                     FROM Owner
                 ";
                     SqlDataReader reader = cmd.ExecuteReader();
+
                     List<Owner> owners = new List<Owner>();
                     while (reader.Read())
                     {
@@ -66,6 +65,7 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                     SELECT Id, Email, [Name], Address, Phone,
                     NeighborhoodId
+                    FROM Owner
                     WHERE Id = @id
                 ";
 

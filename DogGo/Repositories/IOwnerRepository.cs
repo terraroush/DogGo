@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DogGo.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace DogGo.Repositories
 {
-    public class IOwnerRepository
+    public interface IOwnerRepository
     {
+        List<Owner> GetAllOwners();
+        Owner GetOwnerById(int id);
     }
 }
