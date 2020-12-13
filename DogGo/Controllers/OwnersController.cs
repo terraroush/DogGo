@@ -30,9 +30,9 @@ namespace DogGo.Controllers
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
                 if (owner == null)
-            {
-                return NotFound();
-            }
+                {
+                    return NotFound();
+                }
             return View(owner);
         }
 
