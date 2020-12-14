@@ -19,6 +19,7 @@ namespace DogGo.Controllers
         public ActionResult Index()
         {
            List<Dog> dogs = _dogRepo.GetAllDogs();
+
             return View(dogs);
         }
 
@@ -45,16 +46,15 @@ namespace DogGo.Controllers
         public ActionResult Create(Dog dog)
         {
             _dogRepo.AddDog(dog);
-               return RedirectToAction(nameof(Index));
-            //try
-            //{
-            //    _dogRepo.AddDog(dog);
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //catch(Exception ex)
-            //{
-            //    return View(dog);
-            //}
+            try
+            {
+                _dogRepo.AddDog(dog);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View(dog);
+            }
         }
 
         // GET: DogsController/Edit/5
