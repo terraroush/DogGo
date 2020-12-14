@@ -44,15 +44,17 @@ namespace DogGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Dog dog)
         {
-            try
-            {
-                _dogRepo.AddDog(dog);
-                return RedirectToAction(nameof(Index));
-            }
-            catch(Exception ex)
-            {
-                return View(dog);
-            }
+            _dogRepo.AddDog(dog);
+               return RedirectToAction(nameof(Index));
+            //try
+            //{
+            //    _dogRepo.AddDog(dog);
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch(Exception ex)
+            //{
+            //    return View(dog);
+            //}
         }
 
         // GET: DogsController/Edit/5
