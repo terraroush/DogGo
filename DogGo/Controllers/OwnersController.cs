@@ -70,46 +70,60 @@ namespace DogGo.Controllers
         // POST: OwnersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Owner owner)
+        public ActionResult Create(OwnerFormViewModel vm)
         {
             try
             {
-                _ownerRepo.AddOwner(owner);
-                return RedirectToAction(nameof(Index));
+                _ownerRepo.AddOwner(vm.Owner);
+                return RedirectToAction("Details", new { id = vm.Owner.Id });
             }
             catch (Exception ex)
             {
-                return View(owner);
+                //vm.ErrorMessage = "Woops! Something went wrong while saving this owner";
+                vm.Neighborhoods = _neighborhoodRepo.GetAll();
+
+                return View(vm);
             }
         }
 
         // GET: OwnersController/Edit/5
         public ActionResult Edit(int id)
         {
-           Owner owner = _ownerRepo.GetOwnerById(id);
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+            Owner owner = _ownerRepo.GetOwnerById(id);
+
+
+            OwnerFormViewModel vm = new OwnerFormViewModel()
+            {
+                Owner = owner,
+                Neighborhoods = neighborhoods
+            };
 
             if (owner == null)
             {
                 return NotFound();
             }
 
-            return View(owner);
+            return View(vm);
         }
 
         // POST: OwnersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Owner owner)
+        public ActionResult Edit(int id, OwnerFormViewModel vm)
         {
             try
             {
-                _ownerRepo.UpdateOwner(owner);
+                _ownerRepo.UpdateOwner(vm.Owner);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View(owner);
+                //vm.ErrorMessage = "Woops! Something went wrong while saving this owner";
+                vm.Neighborhoods = _neighborhoodRepo.GetAll();
+
+                return View(vm);
             }
         }
 
