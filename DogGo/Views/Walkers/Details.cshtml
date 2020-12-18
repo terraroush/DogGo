@@ -23,6 +23,10 @@
             <span>@Model.Walker.Neighborhood.Name</span>
         </div>
     </section>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Walker.Id }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
 
     <hr class="mt-5" />
     <div class="clearfix"></div>
@@ -38,7 +42,7 @@
                         <div class="card-body">
                             <div>
                                 <label class="font-weight-bold">Date:</label>
-                                <span>@walk.Date</span>
+                                <span>@walk.Date.ToString("MM/dd/yyyy")</span>
                             </div>
                             <div>
                                 <label class="font-weight-bold">Client:</label>
@@ -46,7 +50,7 @@
                             </div>
                             <div>
                                 <label class="font-weight-bold">Duration:</label>
-                                <span>@walk.Duration</span>
+                                <span>@TimeSpan.FromSeconds(walk.Duration).ToString("mm") minutes</span>
                             </div>
                         </div>
                     </li>
@@ -57,19 +61,8 @@
         <section class="col-lg-4 col-md-8 container mt-5">
             <h2>Total Walk Time</h2>
 
-            <ul class="list-group mt-4">
-             
-            </ul>
+            <h4 class="text-info">@Model.WalkTimeDisplay</h4>
         </section>
     </div>
-
-
-   
-            
-       
-    
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Walker.Id }) |
-        <a asp-action="Index">Back to List</a>
-    </div>
+ 
 </div>
