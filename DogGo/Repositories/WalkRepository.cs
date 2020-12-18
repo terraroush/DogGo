@@ -31,10 +31,11 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT wk.Id as WalkId, [Date], Duration, WalkerId, DogId, wlkr.Name AS WalkerName, d.Name AS DogName
+                    SELECT wk.Id as WalkId, wk.[Date], wk.Duration, wk.WalkerId, wk.DogId, wlkr.Name AS WalkerName, o.Name AS OwnerName
                     FROM Walks wk
                     JOIN Walker wlkr ON wk.WalkerId = wlkr.id
-                    JOIN Dog d ON wk.DogId = d.id
+                    JOIN Dog d ON wk.DogId = d.Id
+                    JOIN Owner o ON d.OwnerId = o.Id
                    
                     WHERE wk.WalkerId = @id
                     Order BY wk.[Date] DESC
@@ -64,7 +65,7 @@ namespace DogGo.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("DogId")),
                                 Owner = new Owner()
                                 {
-                                    Name = reader.GetString(reader.GetOrdinal("DogName"))
+                                    Name = reader.GetString(reader.GetOrdinal("OwnerName"))
                                 }
                             }
                         };
