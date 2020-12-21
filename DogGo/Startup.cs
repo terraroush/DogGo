@@ -1,4 +1,5 @@
 using DogGo.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +31,8 @@ namespace DogGo
             services.AddTransient<IDogRepository, DogRepository>();
             services.AddTransient<IWalkRepository, WalkRepository>();
             services.AddTransient<INeighborhoodRepository, NeighborhoodRepository>();
-
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/Owners/LogIn");
 
         }
 
