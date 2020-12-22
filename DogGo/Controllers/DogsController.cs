@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DogGo.Controllers
 {
+    [Authorize]
     public class DogsController : Controller
     {
         private readonly IDogRepository _dogRepo;
@@ -17,6 +19,7 @@ namespace DogGo.Controllers
             _dogRepo = dogRepository;
         }
         // GET: DogsController
+        
         public ActionResult Index()
         {
             int currentUserId = GetCurrentUserId();
