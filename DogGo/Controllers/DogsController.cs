@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace DogGo.Controllers
 {
@@ -18,7 +19,8 @@ namespace DogGo.Controllers
         // GET: DogsController
         public ActionResult Index()
         {
-           List<Dog> dogs = _dogRepo.GetAllDogs();
+            int currentUserId = GetCurrentUserId();
+            List <Dog> dogs = _dogRepo.GetDogsByOwnerId(currentUserId);
 
             return View(dogs);
         }
@@ -97,6 +99,12 @@ namespace DogGo.Controllers
             {
                 return View();
             }
+        }
+
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
         }
     }
 }

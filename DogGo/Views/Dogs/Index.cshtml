@@ -1,9 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-
-
-
-@model IEnumerable<DogGo.Models.Dog>
+﻿@model IEnumerable<DogGo.Models.Dog>
 
 @{
     ViewData["Title"] = "Dogs Index";
@@ -43,6 +38,17 @@ using System.Reflection;
         {
             <tr>
                 <td>
+                    @if (@item.ImageUrl == null)
+                    {
+                        <img src="~/003-dog.png" style="max-width: 100px" alt="default dog image" />
+
+                    }
+                    else
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Name" />
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
@@ -57,17 +63,7 @@ using System.Reflection;
                 <td>
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
-                <td>
-                    @if (@item.ImageUrl == null)
-                    {
-                        <img src="\Users\terra\workspace43\csharp\DogGo\DogGo\Images\003-dog.png" alt="default dog image" />
-
-                    }
-                    else
-                    {
-                        <img src="@item.ImageUrl" alt="@item.Name" />
-                    }
-                </td>
+                
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |

@@ -167,6 +167,7 @@ namespace DogGo.Controllers
 
             if (owner == null)
             {
+                //Has ugly user exp
                 return Unauthorized();
             }
 
