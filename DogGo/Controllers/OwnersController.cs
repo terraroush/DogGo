@@ -158,6 +158,7 @@ namespace DogGo.Controllers
 
         public ActionResult Login()
         {
+            //if user is already logged in, do not let them view this view
             return View();
         }
         [HttpPost]

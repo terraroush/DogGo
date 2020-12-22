@@ -47,10 +47,12 @@ namespace DogGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Dog dog)
         {
-            _dogRepo.AddDog(dog);
             try
             {
+                int currentUserId = GetCurrentUserId();
+                dog.OwnerId = currentUserId;
                 _dogRepo.AddDog(dog);
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
