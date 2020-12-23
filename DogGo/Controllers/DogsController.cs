@@ -32,10 +32,19 @@ namespace DogGo.Controllers
         public ActionResult Details(int id)
         {
             Dog dog = _dogRepo.GetDogById(id);
-                if (dog == null)
-                {
-                    return NotFound();
-                }
+
+            int currentUserId = GetCurrentUserId();
+
+            if (dog.OwnerId != currentUserId)
+            {
+                return NotFound();
+            }
+
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
             return View(dog);
         }
 
@@ -54,6 +63,7 @@ namespace DogGo.Controllers
             {
                 int currentUserId = GetCurrentUserId();
                 dog.OwnerId = currentUserId;
+
                 _dogRepo.AddDog(dog);
 
                 return RedirectToAction(nameof(Index));
@@ -67,21 +77,34 @@ namespace DogGo.Controllers
         // GET: DogsController/Edit/5
         public ActionResult Edit(int id)
         {
+            Dog dog = _dogRepo.GetDogById(id);
+            int currentUserId = GetCurrentUserId();
+
+
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
             return View();
         }
 
         // POST: DogsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Dog dog)
         {
             try
             {
+                int currentUserId = GetCurrentUserId();
+                dog.OwnerId = currentUserId;
+                _dogRepo.UpdateDog(dog);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View(dog);
             }
         }
 
