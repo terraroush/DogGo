@@ -111,21 +111,33 @@ namespace DogGo.Controllers
         // GET: DogsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Dog dog = _dogRepo.GetDogById(id);
+            int currentUserId = GetCurrentUserId();
+
+            if (dog == null)
+            {
+                return NotFound();
+            }
+
+            return View(dog);
         }
 
         // POST: DogsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Dog dog)
         {
             try
             {
+                int currentUserId = GetCurrentUserId();
+                dog.OwnerId = currentUserId;
+                _dogRepo.DeleteDog(id);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View(dog);
             }
         }
 
