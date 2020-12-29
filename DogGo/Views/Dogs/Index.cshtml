@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DogGo.Models.Dog>
 
 @{
-    ViewData["Title"] = "Dogs Index";
+    ViewData["Title"] = "Dogs";
 }
 
 <h1>Dogs Index</h1>
@@ -15,15 +15,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Owner.Name)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Breed)
             </th>
@@ -48,15 +48,15 @@
                         <img src="@item.ImageUrl" alt="@item.Name" />
                     }
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Owner.Name)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Breed)
                 </td>

@@ -13,6 +13,7 @@ namespace DogGo.Models
         [Required]
         public string Name { get; set; }
         public int OwnerId { get; set; }
+        [DisplayName("Owner Name")]
         public Owner Owner { get; set; }
         [Required]
         public string Breed { get; set; }
