@@ -31,10 +31,19 @@ namespace DogGo.Controllers
         public ActionResult Index()
         {
             int currentUserId = GetCurrentUserId();
+            Owner owner = _ownerRepo.GetOwnerById(currentUserId);
+            List<Walker> walkers = new List<Walker>();
 
-            List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(currentUserId);
-
-            return View(walkers);
+            if (owner != null)
+            {
+                walkers = _walkerRepo.GetWalkersInNeighborhood(currentUserId);
+                return View(walkers);
+            }
+            else 
+            {
+                walkers = _walkerRepo.GetAllWalkers();
+                return View(walkers);
+            }
         }
 
         // GET: WalkersController/Details/5
@@ -122,7 +131,15 @@ namespace DogGo.Controllers
         private int GetCurrentUserId()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.Parse(id);
+            if (id != null)
+            {
+                return int.Parse(id);
+            }
+            else
+            {
+                return 0;
+            }
         }
+       
     }
 }
