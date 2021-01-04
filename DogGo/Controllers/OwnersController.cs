@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DogGo.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class OwnersController : Controller
     {
         private IOwnerRepository _ownerRepo;

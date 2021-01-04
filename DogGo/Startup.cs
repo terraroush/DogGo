@@ -31,6 +31,7 @@ namespace DogGo
             services.AddTransient<IDogRepository, DogRepository>();
             services.AddTransient<IWalkRepository, WalkRepository>();
             services.AddTransient<INeighborhoodRepository, NeighborhoodRepository>();
+            services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/Owners/LogIn");
 
